@@ -18,7 +18,7 @@ public class DataEntry implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         int i = 0;
-        while (i <= 5) {
+        while (i <= 10000) {
             Guardian guardian = new Guardian();
             guardian.setName("guardian " + i);
 
@@ -28,7 +28,6 @@ public class DataEntry implements CommandLineRunner {
             var guardianId = guardianRepository.save(guardian).getId();
             student.setGuardianId(guardianId);
             studentRepository.save(student);
-            System.out.println("haha");
             i++;
         }
     }

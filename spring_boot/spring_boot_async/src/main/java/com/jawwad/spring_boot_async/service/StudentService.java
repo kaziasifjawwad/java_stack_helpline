@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,8 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final GuardianRepository guardianRepository;
     private final StudentMapper studentMapper;
+
+    private final StudentServiceHelper studentServiceHelper;
 
     public StudentResponse saveStudent(StudentRequest request){
         return studentMapper.entityToDomain()
@@ -45,6 +49,20 @@ public class StudentService {
                         .entityToDomain().map(m)
                 .setGuardianName(guardianHash.get(m.getGuardianId())
                         .getName()))
+                .collect(Collectors.toList());
+    }
+
+    public List<StudentResponse> getAllStudentByThread() throws ExecutionException, InterruptedException {
+        var students = studentServiceHelper.getAllStudents().get();
+        var guardianHash = studentServiceHelper.getAllGuardians().get();
+
+
+        return students
+                .stream()
+                .map(m->studentMapper
+                        .entityToDomain().map(m)
+                        .setGuardianName(guardianHash.get(m.getGuardianId())
+                                .getName()))
                 .collect(Collectors.toList());
     }
 }

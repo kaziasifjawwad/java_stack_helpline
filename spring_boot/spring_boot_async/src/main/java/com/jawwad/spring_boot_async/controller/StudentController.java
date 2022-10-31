@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/student")
@@ -20,5 +21,10 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<List<StudentResponse>> getAllStudents(){
         return ResponseEntity.ok().body(studentService.getAllStudent());
+    }
+
+    @GetMapping("/thread")
+    public ResponseEntity<List<StudentResponse>> getAllStudentsByThread() throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok().body(studentService.getAllStudentByThread());
     }
 }
