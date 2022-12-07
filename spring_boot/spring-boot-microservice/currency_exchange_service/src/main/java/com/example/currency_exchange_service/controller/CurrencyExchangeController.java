@@ -1,6 +1,7 @@
 package com.example.currency_exchange_service.controller;
 
-import com.example.currency_exchange_service.pojo.ExchangeValue;
+import com.example.currency_exchange_service.entity.ExchangeValue;
+import com.example.currency_exchange_service.service.ExchangeValueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.Objects;
+import java.util.List;
 
 @RestController
 @RequestMapping("/currency-exchange")
@@ -18,17 +18,12 @@ import java.util.Objects;
 public class CurrencyExchangeController {
 
     private final Environment environment;
+    private final ExchangeValueService exchangeValueService;
 
     @GetMapping("/from/{from}/to/{to}")
-    public ResponseEntity<ExchangeValue> retrieveExchangeValue(@PathVariable String from, @PathVariable String to) {
-        return ResponseEntity.ok(new ExchangeValue()
-                .setFrom("USD")
-                .setTo("BDT")
-                .setConvertion((BigDecimal.valueOf(45L)))
-                .setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty(("local.server.port")
-                                ))
-                        )
-                )
+    public ResponseEntity<List<ExchangeValue>> retrieveExchangeValue(@PathVariable String from, @PathVariable String to) {
+        return ResponseEntity.ok(
+                this.exchangeValueService.getAllExchangeValue()
         );
     }
 
