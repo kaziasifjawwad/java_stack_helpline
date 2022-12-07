@@ -20,7 +20,7 @@ public class CurrencyExchangeController {
     private final Environment environment;
 
     @GetMapping("/from/{from}/to/{to}")
-    public ResponseEntity<ExchangeValue> retriveExchangeValue(@PathVariable String from, @PathVariable String to) {
+    public ResponseEntity<ExchangeValue> retrieveExchangeValue(@PathVariable String from, @PathVariable String to) {
         return ResponseEntity.ok(new ExchangeValue()
                 .setFrom("USD")
                 .setTo("BDT")
