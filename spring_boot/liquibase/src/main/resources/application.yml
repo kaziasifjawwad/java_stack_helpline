@@ -6,3 +6,9 @@ spring:
     url: jdbc:h2:mem:sampleDataBase1
   profiles:
     active: dev
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  liquibase:
+    enabled: false
