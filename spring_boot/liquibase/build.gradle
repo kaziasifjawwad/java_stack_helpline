@@ -37,7 +37,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	implementation 'org.liquibase:3.5.3'
+	implementation 'org.liquibase:liquibase-core:3.5.3'
 }
 apply plugin: 'liquibase'
 
