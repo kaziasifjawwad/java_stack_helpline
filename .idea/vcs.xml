@@ -2,6 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/spring-boot-microservice/configuration" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/spring_boot/spring-boot-microservice/properties" vcs="Git" />
   </component>
 </project>
