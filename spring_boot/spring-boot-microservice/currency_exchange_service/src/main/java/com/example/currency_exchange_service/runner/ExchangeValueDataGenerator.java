@@ -19,8 +19,8 @@ public class ExchangeValueDataGenerator implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         this.exchangeValueRepository.save(
-                new ExchangeValue().setFrom_currency("USD")
-                        .setTo_currency("BDT")
+                new ExchangeValue().setFromCurrency("USD")
+                        .setToCurrency("BDT")
                         .setConversionMultiple(BigDecimal.valueOf(100))
                         .setServerPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty(("local.server.port")))))
         );

@@ -10,8 +10,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ExchangeValueService {
-    private ExchangeValueRepository exchangeValueRepository;
-    public List<ExchangeValue> getAllExchangeValue(){
+    private final ExchangeValueRepository exchangeValueRepository;
+
+    public List<ExchangeValue> getAllExchangeValue() {
         return this.exchangeValueRepository.findAll();
+    }
+
+    public ExchangeValue findByFromAndTo(String from, String to) {
+        return this.exchangeValueRepository.findByFromCurrencyAndToCurrency(from, to);
     }
 }

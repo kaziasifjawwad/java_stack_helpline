@@ -24,8 +24,10 @@ public class ExchangeValue {
     @GeneratedValue
     @Column(columnDefinition = "uuid")
     private UUID id;
-    private String from_currency;
-    private String to_currency;
+    @Column(name = "from_currency")
+    private String fromCurrency;
+    @Column(name = "to_currencty")
+    private String toCurrency;
     private BigDecimal conversionMultiple;
     private int serverPort;
 }
