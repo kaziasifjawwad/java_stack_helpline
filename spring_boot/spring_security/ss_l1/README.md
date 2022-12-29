@@ -31,9 +31,28 @@ In general, the goal of authorization is to ensure that users or devices only ha
 to the resources and actions that they are authorized to use, and to prevent unauthorized access to sensitive or restricted areas.
 
 ### Authentication in Spring security
+![img.png](src/main/resources/images/spring_security_diagram.png)
 
-In spring security , authentication is done with something called AuthenticationFilter. AuthenticationFilter is a
+
+In spring security , authentication is done with something called `AuthenticationFilter`. `AuthenticationFilter` is a
 combination of multiple filter chain which we will discuss in later chapter of this repo.
 
-When any request is receieved by the `AuthenticationFilter` , it authenticates this request using 
-authenticationManager.
+When any request is received by the `AuthenticationFilter` , it authenticates this request using 
+`authenticationManager`. The `AuthenticationManager` then delivers 
+the responsibility to `AuthenticationProvider`. The AuthenticationManager might have one or more
+`AuthenticationProvider`. The AuthenticationManager decides which provider should be used to authenticate 
+any request.
+We have authentication logic in  AuthenticationProvider.
+
+Spring security offers a basic authentication mechanism where user can provide username and password to
+authenticate. So, the spring security somehow need to find whether the username and password is correct or
+not. SpringSecurity finds the user using `UserDetailService`. This is an interface we can implement it
+to find the user from any database for the AuthenticationProvider. Finally, there is another interface 
+called `PasswordEncoder` that is used to check the password provided by the user.
+The password is compared with the userDetailService using any hashing algorithm.
+This interface is also used by `AuthenticationProvider`.
+
+If the username and password is correct, the information goes to reverse way to AuthenticationManager,
+AuthenticationManager to AuthenticationFilter. And in the end this credential is saved in as
+SecurityContext object in our system.
+
