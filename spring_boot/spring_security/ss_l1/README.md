@@ -56,3 +56,26 @@ If the username and password is correct, the information goes to reverse way to 
 AuthenticationManager to AuthenticationFilter. And in the end this credential is saved in as
 SecurityContext object in our system.
 
+Now we will create an end point and secure it with spring security.
+Let's create a controller [TestController](src/main/java/jawwad/spring_security/ss_l1/controller).
+If we run this application, we will notice that spring security provides some default configuration. 
+As we've added spring security as a dependency in our pom.xml file, spring did this autoconfiguration
+for us. Now we have to override this autoconfiguration.
+
+When we run this application, and try to hit this end point with post man , we will get an unauthorized error
+in our response.
+
+![img.png](src/main/resources/images/postman.png)
+
+This happens because the spring security did some autoconfiguration for us . It provided a default username
+and password when we started our application. The default username is `user' and the password is an
+auto-generated UUID ID printed on the console.
+
+![img.png](src/main/resources/images/console_password.png)
+
+The initial configuration that spring security provides us is basic authentication . We can use this
+credential to authenticate in the application.
+The spring security will then authenticate the request based on this credential. It will match the password
+from the request and authenticate with some logic. All this steps come from the default configuration that
+spring provides us. The default configuration uses `BasicAuthenticationFilter`.
+
