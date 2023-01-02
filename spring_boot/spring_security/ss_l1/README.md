@@ -113,5 +113,8 @@ custom `UserDetailsService`, we should configure custom `PasswordEncoder` as wel
         return NoOpPasswordEncoder.getInstance();
     }
 ```
+Now if we try to hit the api `http://localhost:8080/test` , it will ask us to give a basic auth credential.
 
+![img.png](src/main/resources/images/basicAuth.png)
 
+We can use our custom user for authentication.
