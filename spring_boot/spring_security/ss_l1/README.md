@@ -79,3 +79,39 @@ The spring security will then authenticate the request based on this credential.
 from the request and authenticate with some logic. All this steps come from the default configuration that
 spring provides us. The default configuration uses `BasicAuthenticationFilter`.
 
+We should keep in mind that we should configure spring security based on our requirement. For example, the
+default configuration provides a random user with a random credential for authentication. We can
+change this generated credential and make our own user.
+
+For generating our own user, we should configure UserDetailService class. We can create a custom user with 
+username and password from our UserDetailService class. This will replace our old user and generate a
+custom user that we can use for authentication. We can configure our UserDetailService by creating a bean
+in our [configuration](src/main/java/jawwad/spring_security/ss_l1/config).
+
+```java
+    @Bean
+    public UserDetailsService UserDetailsService() {
+        var usd = new InMemoryUserDetailsManager();
+        var u1 = User.withUsername("bill")
+                .password("12345")
+                .authorities("read")
+                .build();
+        usd.createUser(u1);
+        return usd;
+    }
+```
+
+We should keep in mind that configuring the UserDetailsService will remove the
+default password encoder that `AuthenticationProvider` requires. So, the
+authentication-provider will throw a null-point exception if we only
+configure `UserDetailsService`. That's why when we configure our
+custom `UserDetailsService`, we should configure custom `PasswordEncoder` as well.
+
+```java
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
+```
+
+
