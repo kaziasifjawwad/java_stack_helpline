@@ -3,23 +3,16 @@ package com.jawwad.ss_l3.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.Type;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 @Data
 @Accessors(chain = true)
-public class UserClass {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private UUID id;
-
-    @Column(name = "username")
-
+    private int id;
     private String username;
-    @Column(name = "password")
     private String password;
 }
+

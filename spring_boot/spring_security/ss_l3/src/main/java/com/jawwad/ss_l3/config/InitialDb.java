@@ -1,7 +1,7 @@
 package com.jawwad.ss_l3.config;
 
 import com.jawwad.ss_l3.entity.Authorities;
-import com.jawwad.ss_l3.entity.UserClass;
+import com.jawwad.ss_l3.entity.UserEntity;
 import com.jawwad.ss_l3.repository.AuthorityRepository;
 import com.jawwad.ss_l3.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class InitialDb implements CommandLineRunner {
     public void run(String... args) throws Exception {
         var userName = "jhon";
         userRepository.save(
-                new UserClass().setPassword("123").setUsername(userName)
+                new UserEntity().setPassword("123").setUsername(userName)
         );
         authorityRepository.save(
                 new Authorities().setAuthority("read").setUsername(userName)
