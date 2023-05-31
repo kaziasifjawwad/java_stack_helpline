@@ -17,7 +17,7 @@ public class InitialDb implements CommandLineRunner {
     public void run(String... args) throws Exception {
         var userName = "jhon";
         userRepository.save(
-                new UserEntity().setPassword("123").setUsername(userName)
+                new UserEntity().setPassword("123").setUsername(userName).setEnabled(1)
         );
         authorityRepository.save(
                 new Authorities().setAuthority("read").setUsername(userName)
