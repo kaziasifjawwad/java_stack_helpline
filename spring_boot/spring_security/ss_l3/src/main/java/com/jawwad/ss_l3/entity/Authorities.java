@@ -4,12 +4,11 @@ package com.jawwad.ss_l3.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.Type;
 
 import java.util.UUID;
 
 @Entity
-@Table(name="authorities")
+@Table(name = "authorities")
 @Data
 @Accessors(chain = true)
 public class Authorities {
