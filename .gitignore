@@ -1,0 +1,13 @@
+.idea/
+
+# Ignore all .bin files
+*.bin
+
+# Ignore all .mf files
+*.mf
+
+*.lock
+
+gc.properties
+
+cache.properties
