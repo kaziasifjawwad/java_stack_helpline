@@ -35,14 +35,15 @@ public class VehicleBulkUpload {
     private static final int seriesNumberColNum = 0;
     private static final int lastRowOfTheSheet = SpreadsheetVersion.EXCEL2007.getLastRowIndex();
     private static Workbook workbook;
+    private static String colLetter;
 
     public static void main(String[] args) throws Exception {
         workbook = new XSSFWorkbook();
         //some data
         Map<String, String[]> categoryItems = new HashMap<>();
-        categoryItems.put("Countries", new String[]{"France", "Germany", "Italy"});
-        categoryItems.put("Capitals", new String[]{"Paris", "Berlin", "Rome"});
-        categoryItems.put("Fruits", new String[]{"Apple", "Peach", "Banana", "Orange"});
+        categoryItems.put("Coun tries", new String[]{});
+        categoryItems.put("Capi tals", new String[]{});
+        categoryItems.put("University", new String[]{"BRAC","NSU"});
         createVehicleMetaData(categoryItems,workbook);
         createManufacturerSheet();
         createDriverInfoSheet(Set.of("Asif", "Arif"));
@@ -192,7 +193,6 @@ public class VehicleBulkUpload {
 
         Row row;
         Name namedRange;
-        String colLetter;
         String reference;
 
         int c = 0;
@@ -272,12 +272,43 @@ public class VehicleBulkUpload {
         DataValidation validation = dvHelper.createValidation(dvConstraint, addressList);
         sheet.addValidationData(validation);
 
+//        dvConstraint = dvHelper
+//                .createFormulaListConstraint(
+//                        "=OFFSET(vehicleModelAndBrand!$A$1, 1, MATCH($C2, vehicleModelAndBrand!$A$1:$C$1, 0) - 1, COUNTA(OFFSET(vehicleModelAndBrand!$A$1, 1, MATCH($C2, vehicleModelAndBrand!$A$1:$C$1, 0) - 1, 15)), 1)");
+
+
         dvConstraint = dvHelper
-                .createFormulaListConstraint(
-                        "=OFFSET(vehicleModelAndBrand!$A$1, 1, MATCH($C2, vehicleModelAndBrand!$A$1:$C$1, 0) - 1, COUNTA(OFFSET(vehicleModelAndBrand!$A$1, 1, MATCH($C2, vehicleModelAndBrand!$A$1:$C$1, 0) - 1, 15)), 1)");
+                .createFormulaListConstraint(generateDependencyConstrain());
+
         addressList = new CellRangeAddressList(1, lastRowOfTheSheet, 3, 3);
         validation = dvHelper.createValidation(dvConstraint, addressList);
         sheet.addValidationData(validation);
+    }
+
+    private static String generateDependencyConstrain(){
+        var expression = "=OFFSET("+
+                sheetOfVehicleModelAndBrandInfo
+    +"!$A$1"
+                +
+                ", 1, MATCH($"+
+                "C2"+
+                ", "+
+                sheetOfVehicleModelAndBrandInfo+
+    "!$A$1:$"+
+        colLetter+"$1"+
+            ", 0) - 1, COUNTA(OFFSET(" +
+                sheetOfVehicleModelAndBrandInfo+
+            "!$A$1"+
+            ", 1, MATCH($"+
+            "C2"+
+            ", "+
+                sheetOfVehicleModelAndBrandInfo +
+    "!$A$1"+
+    ":$"+
+            colLetter+"$1, 0) - 1, "+
+            15+
+    ")), 1)";
+        return expression;
     }
 
     private static  CellStyle getCellStyle() {
