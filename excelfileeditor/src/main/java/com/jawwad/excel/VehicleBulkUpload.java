@@ -36,7 +36,7 @@ public class VehicleBulkUpload {
     private static final int lastRowOfTheSheet = SpreadsheetVersion.EXCEL2007.getLastRowIndex();
     private static Workbook workbook;
     private static String colLetter;
-
+    private static int maximumElementRow =0;
     public static void main(String[] args) throws Exception {
         workbook = new XSSFWorkbook();
         //some data
@@ -201,6 +201,7 @@ public class VehicleBulkUpload {
             row = sheet.getRow(r); if (row == null) row = sheet.createRow(r); r++;
             row.createCell(c).setCellValue(key);
             String[] items = categoryItems.get(key);
+            if(items.length>maximumElementRow) maximumElementRow = items.length;
             for (String item : items) {
                 row = sheet.getRow(r); if (row == null) row = sheet.createRow(r); r++;
                 row.createCell(c).setCellValue(item);
@@ -306,7 +307,7 @@ public class VehicleBulkUpload {
     "!$A$1"+
     ":$"+
             colLetter+"$1, 0) - 1, "+
-            15+
+                maximumElementRow+
     ")), 1)";
         return expression;
     }

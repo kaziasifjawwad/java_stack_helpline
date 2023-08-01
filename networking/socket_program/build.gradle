@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id "com.diffplug.spotless" version "6.19.0"
+}
+
+group 'com.jawwad'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+spotless.java {
+    googleJavaFormat(googleJavaFormatVersion)
+}
+
+tasks.withType(JavaCompile).configureEach { javaCompile ->
+    dependsOn 'spotlessApply'
+}
+
