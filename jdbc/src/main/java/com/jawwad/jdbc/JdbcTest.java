@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class JdbcTest {
     public static void main(String[] args) {
-        String url = "jdbc:postgresql://localhost:5432/jdbctest";
+        String url = "jdbc:postgresql://localhost:5432/jdbc";
         Connection con = null;
         try{
             Driver driver = new Driver();
@@ -18,7 +18,7 @@ public class JdbcTest {
                     con.createStatement();
             ResultSet resultSet =
                     select.executeQuery
-                            ("select * from table_food");
+                            ("select * from person");
             System.out.println(resultSet);
             while(resultSet.next()){
                 System.out.println(resultSet.getString(7));
