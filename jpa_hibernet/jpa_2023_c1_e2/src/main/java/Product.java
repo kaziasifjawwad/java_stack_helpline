@@ -1,11 +1,7 @@
-package entities;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name ="product_custom_table")
 public class Product {
     @Id
     private Long id;

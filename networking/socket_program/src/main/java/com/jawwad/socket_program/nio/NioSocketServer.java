@@ -3,10 +3,12 @@ package com.jawwad.socket_program.nio;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousChannelGroup;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -14,8 +16,12 @@ public class NioSocketServer {
   public NioSocketServer() {
     try {
       // Create an AsynchronousServerSocketChannel that will listen on port 5000
+
+      AsynchronousChannelGroup group =
+              AsynchronousChannelGroup.withThreadPool(Executors.newFixedThreadPool(100));
+
       final AsynchronousServerSocketChannel listener =
-          AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(5000));
+          AsynchronousServerSocketChannel.open(group).bind(new InetSocketAddress(5000));
 
       // Listen for a new request
       listener.accept(
@@ -99,9 +105,9 @@ public class NioSocketServer {
   }
 
   public static void main(String[] args) {
-    NioSocketServer server = new NioSocketServer();
+    new NioSocketServer();
     try {
-      Thread.sleep(60000);
+      Thread.sleep(600000);
     } catch (Exception e) {
       e.printStackTrace();
     }
