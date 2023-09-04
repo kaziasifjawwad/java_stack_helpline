@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id "com.diffplug.spotless" version "6.19.0"
 }
 
 group 'org.example'
@@ -20,13 +19,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-
-spotless.java {
-    googleJavaFormat(googleJavaFormatVersion)
-}
-
-tasks.withType(JavaCompile).configureEach { javaCompile ->
-    dependsOn 'spotlessApply'
 }
