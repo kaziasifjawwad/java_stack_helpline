@@ -1,11 +1,9 @@
 ## The context
 
-When we work with hibernate
-we should keep in mind that we
-are working with context. 
-Not with the database. The
-context is the intermediary thing between our application and database.
-The context is the container of all the
+When we work with hibernate  we should keep in mind that we
+are working with context. Not with the database. The
+context is the intermediary thing between our application and 
+database. The context is the container of all the
 instances hibernate should be aware of. We do not need to consider
 database. 
 We need an entity manager for manage the context in both direction.
@@ -33,8 +31,8 @@ public class JPAXMLConfiguration {
 
         try{
             em.getTransaction().begin();
-            
-            em.find
+
+            em.find(Product.class, 34L);
             
             em.getTransaction().commit();
         }finally {
@@ -51,11 +49,11 @@ once we have done that.
 When we create a context, we must close the context. The spring 
 data jpa automatically close this context for us. 
 
-![img.png](img.png)
+![img.png](src/main/resources/images/img.png)
 
 When we call the instance by using its primary key, it will store the
 instance in the context. Now, if we call the same instance with the primary key,
-it will not call the database. Rather it will be read from the context rather
+it will not call the database. It will be read from the context rather
 make an additional call. 
 
 ```java
@@ -72,7 +70,7 @@ make an additional call.
   }
 ```
 
-Now let's say I change the name field of the retrieved context.
+* Now let's say I change the name field of the retrieved context.
 In this case, if I set an updated value in the name field and
 restart my application, I will see that the database also
 updated the row corresponding the primary key.
@@ -81,12 +79,17 @@ will automatically commit the changes at the end using commit method.
 It will observe the instance whether there is any change on it or not
 and base on the change, it will update its value on the database.
 
-If there is any scenario when the instance changes but somehow, the change does not
-have any difference with its previous state, to hibernate will not commit it
-to the database. Since the instance's value did not have any noticeable change,
+
+* If there is any scenario when the instance changes but somehow,
+the change does not
+have any difference with its previous state, 
+hibernate will not commit it
+to the database. Since the instance's value did not have any 
+noticeable change,
 to hibernate will not update its value to the database.
 
-Using remove method, we can remove it from database.
+
+* Using remove method, we can remove it from database.
 
 ```java
 em.remove(e1); // here e1 is an instance of product that was retrieved from db.
