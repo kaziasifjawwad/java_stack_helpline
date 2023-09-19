@@ -89,3 +89,33 @@ This will call the database.
 We did something with it 
 (printed it in the console).
 
+
+#### Refresh
+There is nothing called update in context based framework. When we
+make some change in the entity that exists in the context, it will
+automatically reflect on the database as soon we call the commit
+method on the entity.
+
+```java
+em.getTransaction.commit();
+```
+By calling the commit method, we will automatically update
+all the entity that are present in the current context. 
+Now assume that we have a very complex algorithm where there might
+be a high change that some of our entity may be changed by mistak.
+And we want to ensure that a particular entity should not be 
+modified before commit. For this we can refresh that entity by
+this method.
+
+```java
+      em.getTransaction().begin();
+      var e1 = em.getReference(Product.class, 1L);
+      e1.setName("Abc");
+      em.refresh(e1);
+      em.getTransaction().commit();
+```
+
+By calling refresh over e1 object, we will make it sure that the
+object e1 should not have any change that will reflect on the database.
+In summary, it will not update the name to `Abc` on the database.
+
