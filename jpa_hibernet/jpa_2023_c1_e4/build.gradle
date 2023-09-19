@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id "com.diffplug.spotless" version "6.19.0"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+    implementation 'org.postgresql:postgresql:42.5.4'
+    implementation 'org.hibernate:hibernate-core:6.2.5.Final'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+spotless.java {
+    googleJavaFormat(googleJavaFormatVersion)
+}
+
+tasks.withType(JavaCompile).configureEach { javaCompile ->
+    dependsOn 'spotlessApply'
+}
