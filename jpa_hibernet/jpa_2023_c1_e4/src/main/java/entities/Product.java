@@ -1,3 +1,5 @@
+package entities;
+
 import generators.UUIDGenerator;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,6 +30,6 @@ public class Product {
 
   @Override
   public String toString() {
-    return "Product{" + "id=" + id + ", name='" + name + '\'' + '}';
+    return "entities.Product{" + "id=" + id + ", name='" + name + '\'' + '}';
   }
 }

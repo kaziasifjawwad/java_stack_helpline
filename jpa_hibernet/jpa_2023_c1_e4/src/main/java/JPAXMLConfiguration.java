@@ -1,3 +1,5 @@
+import entities.Player;
+import entities.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.HashMap;
@@ -20,11 +22,16 @@ public class JPAXMLConfiguration {
 
     try {
       em.getTransaction().begin();
-      Product product = new Product();
+      var product = new Product();
       product.setName("Good product");
       em.persist(product);
-      em.getTransaction().commit();
 
+      var player = new Player();
+      player.setCode("444");
+      player.setName("7878");
+      player.setName("HASIM AMLA");
+      em.persist(player);
+      em.getTransaction().commit();
     } finally {
       em.clear();
     }
