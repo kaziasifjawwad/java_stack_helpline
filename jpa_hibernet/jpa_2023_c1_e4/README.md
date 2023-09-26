@@ -57,3 +57,60 @@ Then instead of using GenerationType, we used `generator`
 and provided the generator that we created with
 `@GenericGenerator(name = "UUIDGenerator", type = UUIDGenerator.class)`
 
+### Composed primary key
+
+In hibernate we also can create composed primary key.
+There are two ways to create composed primary key
+* using Id class
+* Using embadable class (EmbadableId)
+
+#### Id class
+For this we need to create a class that will contain 
+the same attributes (variable) with same name and type
+of the entity class thous which we want to use as composed
+primary key.
+For example we have an entity called Player. In our
+player class we have 
+```java
+  private String code;
+  private long number;
+```
+
+We want this two attribute as composed primary key.
+For this we need to craete a seperate class with this
+two attributes.
+
+```java
+package keys;
+
+import java.io.Serializable;
+
+public class PlayerKey implements Serializable {
+  private String code;
+  private long number;
+}
+```
+
+Then we can use this class to crete our composed primary
+key.
+
+```java
+package entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import keys.PlayerKey;
+
+@Entity
+@IdClass(PlayerKey.class)
+public class Player {
+  @Id private String code;
+  @Id private long number;
+  private String name;
+}
+```
+We need to tell hibernate that we will use a class
+called PlayerKey.
+We also have to use @Id annotation in each of the composite
+key's attribute. In this case they are `code, name`.
