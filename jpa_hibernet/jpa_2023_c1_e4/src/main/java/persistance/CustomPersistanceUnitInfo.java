@@ -58,7 +58,7 @@ public class CustomPersistanceUnitInfo implements PersistenceUnitInfo {
 
   @Override
   public List<String> getManagedClassNames() {
-    return List.of("entities.Product", "entities.Player");
+    return List.of("entities.ProductEntity", "entities.PlayerEntity", "entities.StudentEntity");
   }
 
   @Override

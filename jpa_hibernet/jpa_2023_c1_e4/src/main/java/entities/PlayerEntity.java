@@ -3,11 +3,13 @@ package entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
 import keys.PlayerKey;
 
 @Entity
 @IdClass(PlayerKey.class)
-public class Player {
+@Table(name = "player")
+public class PlayerEntity {
   @Id private long number;
   @Id private String code;
   private String name;

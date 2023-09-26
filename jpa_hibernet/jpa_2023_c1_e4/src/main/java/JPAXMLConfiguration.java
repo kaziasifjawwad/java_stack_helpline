@@ -1,9 +1,11 @@
-import entities.Player;
-import entities.Product;
+import entities.PlayerEntity;
+import entities.ProductEntity;
+import entities.StudentEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
+import keys.StudentKey;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import persistance.CustomPersistanceUnitInfo;
 
@@ -22,15 +24,26 @@ public class JPAXMLConfiguration {
 
     try {
       em.getTransaction().begin();
-      var product = new Product();
+
+      var product = new ProductEntity();
       product.setName("Good product");
       em.persist(product);
 
-      var player = new Player();
+      var player = new PlayerEntity();
       player.setCode("444");
       player.setName("7878");
       player.setName("HASIM AMLA");
       em.persist(player);
+
+      var studentKey = new StudentKey();
+      studentKey.setCode("7845");
+      studentKey.setNumber(234);
+
+      var student = new StudentEntity();
+      student.setId(studentKey);
+      student.setName("Arif");
+      em.persist(student);
+
       em.getTransaction().commit();
     } finally {
       em.clear();

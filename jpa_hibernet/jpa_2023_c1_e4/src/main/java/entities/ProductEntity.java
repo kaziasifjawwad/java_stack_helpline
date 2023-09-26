@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class Product {
+@Table(name = "product")
+public class ProductEntity {
 
   @Id
   @GenericGenerator(name = "UUIDGenerator", type = UUIDGenerator.class)
@@ -15,7 +16,7 @@ public class Product {
   @Column(unique = true)
   private String name;
 
-  public Product setName(String name) {
+  public ProductEntity setName(String name) {
     this.name = name;
     return this;
   }
