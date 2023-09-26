@@ -114,3 +114,42 @@ We need to tell hibernate that we will use a class
 called PlayerKey.
 We also have to use @Id annotation in each of the composite
 key's attribute. In this case they are `code, name`.
+
+
+#### Using Embeddable class (EmbeddedId)
+In this second approach, we can create a composite primary key using
+a seperate composite class. The class that contains all the attribute
+of composite keys (all the prime attribute) must be annoated with
+`@Embeddable`
+
+```java
+package keys;
+
+import jakarta.persistence.Embeddable;
+import java.io.Serializable;
+
+@Embeddable
+public class StudentKey implements Serializable {
+  private long number;
+  private String code;
+}
+```
+
+Now we have a class that is ready to use as composite primary key.
+Now we can use it in our entity class.
+
+```java
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import keys.StudentKey;
+
+@Entity
+public class StudentEntity {
+  @EmbeddedId private StudentKey id;
+
+  private String name;
+}
+```
+
+Keep in mind that we are no longer using `@Id` annotation. Rather
+we are using `@EmbeddedId` annotation in our entity class.
