@@ -10,15 +10,21 @@ public class JPAXMLConfiguration {
 
     Map<String, String> props = new HashMap<>();
     props.put("hibernate.show_sql", "true");
+    props.put("hibernate.hbm2ddl.auto", "update");
+
     EntityManagerFactory emf =
         new HibernatePersistenceProvider()
             .createContainerEntityManagerFactory(new CustomPersistanceUnitInfo(), props);
+
     EntityManager em = emf.createEntityManager();
 
     try {
       em.getTransaction().begin();
-      var e1 = em.getReference(Product.class, 1L);
+      Product product = new Product();
+      product.setName("Good product");
+      em.persist(product);
       em.getTransaction().commit();
+
     } finally {
       em.clear();
     }

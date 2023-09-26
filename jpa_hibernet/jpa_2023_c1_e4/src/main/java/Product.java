@@ -1,23 +1,24 @@
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import generators.UUIDGenerator;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Product {
 
-  @Id private Long id;
-  private String name;
+  @Id
+  @GenericGenerator(name = "UUIDGenerator", type = UUIDGenerator.class)
+  @GeneratedValue(generator = "UUIDGenerator")
+  private String id;
 
-  public Product setId(Long id) {
-    this.id = id;
-    return this;
-  }
+  @Column(unique = true)
+  private String name;
 
   public Product setName(String name) {
     this.name = name;
     return this;
   }
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
